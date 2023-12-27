@@ -106,9 +106,3 @@ venv.bak/
 train_root/
 Datasets/
 tmp/
-*.jpg
-*.png
-*.ply
-*.mp4
-*.avi
-*.pb

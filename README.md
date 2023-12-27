@@ -1,7 +1,7 @@
 # Lightweight Portrait Matting via Regional Attention and Refinement (WACV 2024)
 
 ![image results](assets/trimap_viz2.jpg)
-![demo video](assets/es2_.mp4)
+[![demo video]()(assets/es2_.mp4)]
 
 This is the offical pytorch implementation of the below paper.
 
