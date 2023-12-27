@@ -1,7 +1,17 @@
 # Lightweight Portrait Matting via Regional Attention and Refinement (WACV 2024)
 
-![image results](assets/trimap_viz2.jpg)
-[![demo video]()(assets/es2_.mp4)]
+<table>
+  <tr>
+    <td> <img src="assets/demo1.gif" alt="1" width=800 height=160 ></td>
+    <td> <img src="assets/demo2.gif" alt="2" width=800 height=160 ></td>
+   </tr> 
+  <tr>
+    <td> <img src="assets/demo3.gif" alt="1" width=800 height=160 ></td>
+    <td> <img src="assets/demo4.gif" alt="2" width=800 height=160 ></td>
+   </tr> 
+</table>
+
+(Demos shown above are generated using the test videos from [BGM](https://github.com/senguptaumd/Background-Matting).)
 
 This is the offical pytorch implementation of the below paper.
 
@@ -42,3 +52,13 @@ Run `bash run_benchmark.sh` for model evaluation. You may change the value of `S
 
 ## Model Profiling
 Run `bash run_profile.sh` to profile model inference speed. You may change the value of `SRC_TRAIN_DIR` and `INPUT_SIZE` to specify which model and input resolution to profile with.
+
+# Results
+## Intermediate coarse trimaps vs output high resolution mattes
+![trimaps](assets/trimap_viz2.jpg)
+
+## Qualitative results 
+![qualitative results](assets/all_viz2.jpg)
+
+## Metrics on P3M-10K dataset
+![metrics](assets/tab2.png)
