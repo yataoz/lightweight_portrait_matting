@@ -2,12 +2,12 @@
 
 <table>
   <tr>
-    <td> <img src="assets/demo1.gif" alt="1" width=800 height=160 ></td>
-    <td> <img src="assets/demo2.gif" alt="2" width=800 height=160 ></td>
+    <td> <img src="assets/demo1.gif" alt="1" width=800 height=450 ></td>
+    <td> <img src="assets/demo2.gif" alt="2" width=800 height=450 ></td>
    </tr> 
   <tr>
-    <td> <img src="assets/demo3.gif" alt="1" width=800 height=160 ></td>
-    <td> <img src="assets/demo4.gif" alt="2" width=800 height=160 ></td>
+    <td> <img src="assets/demo3.gif" alt="1" width=800 height=450 ></td>
+    <td> <img src="assets/demo4.gif" alt="2" width=800 height=450 ></td>
    </tr> 
 </table>
 
