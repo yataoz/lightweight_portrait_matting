@@ -3,12 +3,16 @@
 <table>
   <tr>
     <td> <img src="assets/demo1.gif" alt="1" width=800 height=450 ></td>
-    <td> <img src="assets/demo2.gif" alt="2" width=800 height=450 ></td>
-   </tr> 
+  </tr> 
+  <tr>
+    <td> <img src="assets/demo2.gif" alt="1" width=800 height=450 ></td>
+  </tr> 
   <tr>
     <td> <img src="assets/demo3.gif" alt="1" width=800 height=450 ></td>
-    <td> <img src="assets/demo4.gif" alt="2" width=800 height=450 ></td>
-   </tr> 
+  </tr> 
+  <tr>
+    <td> <img src="assets/demo4.gif" alt="1" width=800 height=450 ></td>
+  </tr> 
 </table>
 
 (Demos shown above are generated using the test videos from [BGM](https://github.com/senguptaumd/Background-Matting).)
@@ -42,16 +46,20 @@ The training process saves losses and intermediate visualizations to the specifi
 tensorboard --logdir ./train_root/<model_name>/logger
 ```
 
+## Pretrained Model
+You can download the pretrained model [here](https://drive.google.com/drive/folders/1ZwhgHj_GO-NoD8MrMJYv7GaybNxGCHdx?usp=drive_link). 
+
 ## Evaluation Data
 1. The model is evaluated with [P3M-10K](https://github.com/JizhiziLi/P3M/tree/master?tab=readme-ov-file), [PPM-100]() and [PhotoMatte85](). Download the datasets and save to `./Datasets/P3M-10K`, `./Datasets/PPm-100` and `./Datasets/PhotoMatte85`.
 2. Some of the evaluation metrics require trimap annotations. The test set of P3M-10K comes with trimap images already, so we're good on this. However, PPM-100 and PhotoMatte85 do not have ground truth trimap annotations. Following the trimap generation of P3M-10K, we create trimaps from alpha mattes with similar heuristics such as dilations and erosions.
 Call the `gen_dataset_trimaps()` function in `PPMData/data_loader.py` and `PhotoMatteData/data_loader.py` to generate trimaps for both datasets.
 
 ## Model Evaluation
-Run `bash run_benchmark.sh` for model evaluation. You may change the value of `SRC_TRAIN_DIR`, `DATASET` and `PRIVACY_DATA` to specify which model and dataset/subset to evaluate with. A *.csv file will be saved in the model checkpoint folder with all the evaluated metrics.
+1. Make sure your trained model or pretrained checkpoint is located in `./train_root/<model_name>/logger`. E.g., `./train_root/<model_name>/logger/0000500000.pth`.
+2. Run `bash run_benchmark.sh` for model evaluation. You may change the value of `SRC_TRAIN_DIR`, `DATASET` and `PRIVACY_DATA` to specify which model and dataset/subset to evaluate with. A *.csv file will be saved in the model checkpoint folder with all the evaluated metrics.
 
 ## Model Profiling
-Run `bash run_profile.sh` to profile model inference speed. You may change the value of `SRC_TRAIN_DIR` and `INPUT_SIZE` to specify which model and input resolution to profile with.
+Run `bash run_profile.sh` to profile network inference speed (excluding pre/post processing). You may change the value of `SRC_TRAIN_DIR` and `INPUT_SIZE` to specify which model and input resolution to profile with.
 
 # Results
 ## Intermediate coarse trimaps vs output high resolution mattes

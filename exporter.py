@@ -42,7 +42,7 @@ class TracingWrapperHighres(nn.Module):
             return ret['highres_matte']
 
 class Exporter():
-    def __init__(self, test_cfg, model_cfg, gpu_id, init_ckpt_file='', init_lowres_ckpt_file=''):
+    def __init__(self, test_cfg, model_cfg, gpu_id, init_ckpt_file=''):
         self.test_cfg = test_cfg
         self.model_cfg = model_cfg
 
@@ -53,17 +53,8 @@ class Exporter():
         device0 = 'cuda:{}'.format(gpu_id) if gpu_id is not None and gpu_id >= 0 else 'cpu'
         self.device0 = device0
 
-        # need to load a checkpoint from sparse training to figure out the weights to prune
-        if hasattr(model_cfg, 'PRUNE') and model_cfg.PRUNE.ENABLE:
-            assert os.path.isfile(init_ckpt_file)
+        if len(init_ckpt_file) > 0 and os.path.isfile(init_ckpt_file):
             self.load_ckpt(init_ckpt_file, map_location='cpu')
-            self.container.mat_model.prune()
-        # must initialize model before calling DataParallel()
-        elif len(init_ckpt_file) > 0 and os.path.isfile(init_ckpt_file):
-            self.load_ckpt(init_ckpt_file, map_location='cpu')
-
-            if len(init_lowres_ckpt_file) > 0 and os.path.isfile(init_lowres_ckpt_file):
-                self.load_lowres_ckpt(init_lowres_ckpt_file, map_location='cpu')
 
         self.container.mat_model.eval().to(device0)
 
@@ -94,22 +85,6 @@ class Exporter():
 
         print("Model successfully loaded from {}".format(ckpt_file))
 
-    def load_lowres_ckpt(self, lowres_ckpt_file, map_location):
-        assert lowres_ckpt_file[-3:] == 'pth'
-        assert os.path.isfile(lowres_ckpt_file)
-        state_dict = torch.load(lowres_ckpt_file, map_location=map_location)
-
-        # ignore buffer 'attn_mask', which is not trainable and input shape independent
-        new_state_dict = self.container.mat_model.state_dict()
-        for k, v in new_state_dict.items():
-            if 'attn_mask' not in k:
-                new_state_dict[k] = state_dict['mat_model'][k]
-        
-        for name in ['lowres_model', 'seg_heads', 'trimap_heads']:
-            getattr(self.container.mat_model, name).load_state_dict(dict([(k.replace(name+'.', ''), v) for k, v in new_state_dict.items() if name in k]))
-
-        print("Lowres model successfully loaded from {}".format(lowres_ckpt_file))
-
     def export(self, input_size, dst_dir=None):
         """
         export full model
@@ -119,7 +94,7 @@ class Exporter():
         # better to use a real image as input because the refinement net depends on image content
         import cv2
         import numpy as np
-        img = cv2.imread('/data/yazhong/Datasets/PhotoMatte85/image/0051115Q_000001_0003.jpg')
+        img = cv2.imread('assets/example.jpg')
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = cv2.resize(img, tuple(input_size))
         img = torch.as_tensor(img.astype(np.float32) / 255, dtype=torch.float32, device=self.device0).permute(2, 0, 1).unsqueeze(0)
@@ -155,7 +130,7 @@ class Exporter():
         # better to use a real image as input because the refinement net depends on image content
         import cv2
         import numpy as np
-        img = cv2.imread('/data/yazhong/Datasets/PhotoMatte85/image/0051115Q_000001_0003.jpg')
+        img = cv2.imread('assets/example.jpg')
         img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         img = cv2.resize(img, input_size)
         img = torch.as_tensor(img.astype(np.float32) / 255, dtype=torch.float32, device=self.device0).permute(2, 0, 1).unsqueeze(0)

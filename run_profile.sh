@@ -1,6 +1,6 @@
 #!/bin/bash
 
-GPU=2
+GPU=0
 GET_FLOPS=0
 INPUT_SIZE="1152 1792"      # HD. (w, h)
 #INPUT_SIZE="2304 3456"      # 4K. (w, h)
