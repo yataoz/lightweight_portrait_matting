@@ -66,7 +66,8 @@ Run `bash run_profile.sh` to profile network inference speed (excluding pre/post
 ![trimaps](assets/trimap_viz2.jpg)
 
 ## Qualitative results 
-![qualitative results](assets/all_viz2.jpg)
+![all_viz1](assets/all_viz1.jpg)
+![all_viz2](assets/all_viz2.jpg)
 
 ## Metrics on P3M-10K dataset
 ![metrics](assets/tab2.png)
