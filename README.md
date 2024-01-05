@@ -47,7 +47,7 @@ tensorboard --logdir ./train_root/<model_name>/logger
 ```
 
 ## Pretrained Model
-You can download the pretrained model [here](https://drive.google.com/drive/folders/1ZwhgHj_GO-NoD8MrMJYv7GaybNxGCHdx?usp=drive_link). 
+You can download the pretrained model [here](https://drive.google.com/drive/folders/1ZwhgHj_GO-NoD8MrMJYv7GaybNxGCHdx?usp=sharing). 
 
 ## Evaluation Data
 1. The model is evaluated with [P3M-10K](https://github.com/JizhiziLi/P3M/tree/master?tab=readme-ov-file), [PPM-100]() and [PhotoMatte85](). Download the datasets and save to `./Datasets/P3M-10K`, `./Datasets/PPm-100` and `./Datasets/PhotoMatte85`.
