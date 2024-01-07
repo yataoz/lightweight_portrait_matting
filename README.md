@@ -1,4 +1,4 @@
-# Lightweight Portrait Matting via Regional Attention and Refinement (WACV 2024)
+# Lightweight Portrait Matting via Regional Attention and Refinement
 
 <table>
   <tr>
